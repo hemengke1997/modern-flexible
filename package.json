@@ -1,17 +1,19 @@
 {
-  "name": "ts-template",
+  "name": "modern-flexible",
   "type": "module",
   "version": "0.0.0",
-  "packageManager": "pnpm@7.30.0",
-  "description": "a template for typescript project or plugin",
+  "packageManager": "pnpm@8.1.1",
+  "description": "现代多设备伸缩布局方案",
   "author": "hemengke <https://github.com/hemengke1997>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hemengke1997/ts-template.git"
+    "url": "git+https://github.com/hemengke1997/modern-flexible.git"
   },
   "keywords": [
-    "TODO"
+    "flexiblejs",
+    "responsive",
+    "flexible"
   ],
   "exports": {
     ".": {
@@ -38,16 +40,21 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "bump": "bumpp packages/*/package.json -c -p -t --all -x \"pnpm run changelog\""
   },
+  "dependencies": {
+    "deepmerge": "^4.3.1",
+    "throttle-debounce": "^5.0.0"
+  },
   "devDependencies": {
-    "@minko-fe/eslint-config": "1.2.32",
-    "@minko-fe/tsconfig": "^1.2.32",
-    "bumpp": "^9.0.0",
+    "@minko-fe/eslint-config": "^1.2.33",
+    "@minko-fe/tsconfig": "^1.2.33",
+    "@types/throttle-debounce": "^5.0.0",
+    "bumpp": "^9.2.0",
     "conventional-changelog-cli": "^2.2.2",
-    "eslint": "8.36.0",
-    "pnpm": "^7.30.0",
-    "taze": "^0.9.1",
-    "tsup": "^6.7.0",
-    "typescript": "^5.0.2",
-    "vitest": "^0.29.7"
+    "eslint": "8.48.0",
+    "pnpm": "^7.33.6",
+    "taze": "^0.9.2",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2",
+    "vitest": "^0.29.8"
   }
 }
