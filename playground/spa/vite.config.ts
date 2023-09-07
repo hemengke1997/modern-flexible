@@ -17,7 +17,7 @@ function setupHtml() {
       {
         tag: 'script',
         attrs: {
-          src: manifest.flexible,
+          src: `${manifest.flexible}`,
         },
         injectTo: 'head-prepend',
       },
@@ -31,6 +31,7 @@ function setupHtml() {
 export default defineConfig({
   build: {
     outDir: '../../playground-dist',
+    emptyOutDir: true,
   },
   base: '/modern-flexible/',
   plugins: [react(), publicTypescript({ sideEffects: true }), setupHtml()],
