@@ -97,7 +97,7 @@ function flexible(options: FlexibleOption) {
       }
 
       if (document.documentElement) {
-        document.documentElement.style.fontSize = `${(width * rootValue) / currentDevice.UIWidth}px`
+        document.documentElement.style.fontSize = `${(width / currentDevice.UIWidth) * rootValue}px`
       }
     } else {
       throw new Error(genErrorMsg('no device matched'))
