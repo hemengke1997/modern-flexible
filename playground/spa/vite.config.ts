@@ -29,6 +29,9 @@ function setupHtml() {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    outDir: '../../playground-dist',
+  },
   base: '/modern-flexible/',
   plugins: [react(), publicTypescript({ sideEffects: true }), setupHtml()],
 })
