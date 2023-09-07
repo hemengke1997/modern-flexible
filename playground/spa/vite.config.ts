@@ -17,7 +17,7 @@ function setupHtml() {
       {
         tag: 'script',
         attrs: {
-          src: `${manifest.flexible}`,
+          src: manifest.flexible,
         },
         injectTo: 'head-prepend',
       },
