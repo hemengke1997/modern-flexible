@@ -12,7 +12,6 @@ function setupHtml() {
       tags: [],
     },
   }
-
   tags.inject?.tags?.push(
     ...([
       {
@@ -30,5 +29,6 @@ function setupHtml() {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/modern-flexible/',
   plugins: [react(), publicTypescript({ sideEffects: true }), setupHtml()],
 })
