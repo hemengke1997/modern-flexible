@@ -9,10 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@minko-fe/react-hook": "^0.0.75",
     "modern-flexible": "workspace:*",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-use": "^17.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.21",

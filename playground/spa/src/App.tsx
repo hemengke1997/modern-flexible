@@ -1,6 +1,6 @@
 import { useLayoutEffect, useState } from 'react'
 import flexible from 'modern-flexible'
-import { useWindowSize } from '@minko-fe/react-hook'
+import { useWindowSize } from 'react-use'
 import './App.css'
 
 const DEVICE = [
