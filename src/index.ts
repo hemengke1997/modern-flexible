@@ -35,14 +35,14 @@ type FlexibleOption = {
   distinctDevice: {
     /**
      * @description
-     * UI design width
+     * UI design width, AKA the starndard width.
      */
     UIWidth: number
     /**
      * @description
      * device width range (if width is out of range, use the edge value of the closed interval)
      */
-    widthRange: [number, number]
+    deviceWidthRange: number[]
     /**
      * @description
      * whether the current window width is this device
@@ -89,11 +89,15 @@ function flexible(options: FlexibleOption) {
         typeof device.isDevice === 'boolean' ? device.isDevice : device.isDevice(width),
       ) || defaultDevice
 
+    if (currentDevice.deviceWidthRange.length !== 2) {
+      throw new Error(genErrorMsg('deviceWidthRange length must be 2'))
+    }
+
     if (currentDevice) {
-      if (width >= currentDevice.widthRange[1]) {
-        width = currentDevice.widthRange[1]
-      } else if (width <= currentDevice.widthRange[0]) {
-        width = currentDevice.widthRange[0]
+      if (width >= currentDevice.deviceWidthRange[1]) {
+        width = currentDevice.deviceWidthRange[1]
+      } else if (width <= currentDevice.deviceWidthRange[0]) {
+        width = currentDevice.deviceWidthRange[0]
       }
 
       if (document.documentElement) {

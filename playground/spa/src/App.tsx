@@ -1,45 +1,63 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useLayoutEffect, useState } from 'react'
+import flexible from 'modern-flexible'
+import { useWindowSize } from '@minko-fe/react-hook'
 import './App.css'
+
+const DEVICE = [
+  { isDevice: (clientWidth: number) => clientWidth < 750, UIWidth: 375, deviceWidthRange: [300, 375], type: '手机' }, // 手机
+  {
+    isDevice: (clientWidth: number) => clientWidth >= 750 && clientWidth < 1280,
+    UIWidth: 1280,
+    deviceWidthRange: [960, 1280],
+    type: '平板',
+  }, // 平板
+  {
+    isDevice: (clientWidth: number) => clientWidth >= 1280,
+    UIWidth: 1920,
+    deviceWidthRange: [1280, 1920],
+    type: '电脑',
+  }, // 电脑
+]
+
+flexible({
+  distinctDevice: DEVICE,
+})
 
 function App() {
   const [count, setCount] = useState(0)
   const [fontSize, setFontSize] = useState('')
 
-  useEffect(() => {
-    setFontSize(document.documentElement.style.fontSize)
+  const [device, setDevice] = useState('')
 
-    window.addEventListener('resize', () => {
-      setTimeout(() => {
-        setFontSize(document.documentElement.style.fontSize)
-      }, 1000)
+  const size = useWindowSize()
+
+  useLayoutEffect(() => {
+    const t = setTimeout(() => {
+      setFontSize(document.documentElement.style.fontSize)
+    }, 500)
+
+    DEVICE.find((d) => {
+      if (d.isDevice(size.width)) {
+        setDevice(d.type)
+        return true
+      }
+      return false
     })
-  }, [])
+    return () => {
+      clearTimeout(t)
+    }
+  }, [size])
 
   return (
     <div className='App'>
-      <div>
-        <a href='https://vitejs.dev' target='_blank' rel='noreferrer'>
-          <img src={viteLogo} className='logo' alt='Vite logo' />
-        </a>
-        <a href='https://reactjs.org' target='_blank' rel='noreferrer'>
-          <img src={reactLogo} className='logo react' alt='React logo' />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+      <h1>当前机型：{device}</h1>
+
       <h2>font-size: {fontSize}</h2>
       <div className='card'>
         <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-        h
       </div>
-      <p className='read-the-docs'>Click on the Vite and React logos to learn more</p>
     </div>
   )
 }
 
-// eslint-disable-next-line no-restricted-syntax
 export default App
