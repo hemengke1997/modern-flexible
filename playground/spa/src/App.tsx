@@ -24,7 +24,6 @@ flexible({
 })
 
 function App() {
-  const [count, setCount] = useState(0)
   const [fontSize, setFontSize] = useState('')
 
   const [device, setDevice] = useState('')
@@ -53,9 +52,6 @@ function App() {
       <h1>当前机型：{device}</h1>
 
       <h2>font-size: {fontSize}</h2>
-      <div className='card'>
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-      </div>
     </div>
   )
 }

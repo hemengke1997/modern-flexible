@@ -11,6 +11,20 @@ interface ThrottleOptions {
   debounceMode?: boolean
 }
 
+type NotNill<T> = T extends null | undefined ? never : T
+
+type Primitive = undefined | null | boolean | string | number | Function
+
+type DeepRequired<T> = T extends Primitive
+  ? NotNill<T>
+  : {
+      [P in keyof T]-?: T[P] extends Array<infer U>
+        ? Array<DeepRequired<U>>
+        : T[P] extends ReadonlyArray<infer U2>
+        ? DeepRequired<U2>
+        : DeepRequired<T[P]>
+    }
+
 type FlexibleOption = {
   rootValue?: number
   /**
@@ -20,12 +34,12 @@ type FlexibleOption = {
   resizeOption?:
     | {
         type: 'debounce'
-        delay: number
+        delay?: number
         options?: DebounceOptions
       }
     | {
         type: 'throttle'
-        delay: number
+        delay?: number
         options?: ThrottleOptions
       }
   /**
@@ -52,8 +66,10 @@ type FlexibleOption = {
 }
 
 function genErrorMsg(msg: string) {
-  return `[flexible.js]: ${msg}`
+  return `[modern-flexible]: ${msg}`
 }
+
+const PX_UNIT = 'px'
 
 const DEFAULT_OPTIONS: Partial<FlexibleOption> = {
   rootValue: 16,
@@ -69,7 +85,7 @@ function flexible(options: FlexibleOption) {
 
   options = deepmerge(options, DEFAULT_OPTIONS)
 
-  const { rootValue, resizeOption, distinctDevice } = options as Required<FlexibleOption>
+  const { rootValue, resizeOption, distinctDevice } = options as DeepRequired<FlexibleOption>
 
   if (!rootValue || rootValue <= 0) {
     throw new Error(genErrorMsg('rootValue must be greater than 0'))
@@ -101,7 +117,7 @@ function flexible(options: FlexibleOption) {
       }
 
       if (document.documentElement) {
-        document.documentElement.style.fontSize = `${(width / currentDevice.UIWidth) * rootValue}px`
+        document.documentElement.style.fontSize = `${(width / currentDevice.UIWidth) * rootValue}${PX_UNIT}`
       }
     } else {
       throw new Error(genErrorMsg('no device matched'))
