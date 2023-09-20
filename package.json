@@ -46,8 +46,8 @@
     "throttle-debounce": "^5.0.0"
   },
   "devDependencies": {
-    "@minko-fe/eslint-config": "^1.2.33",
-    "@minko-fe/tsconfig": "^1.2.33",
+    "@minko-fe/eslint-config": "^1.2.35",
+    "@minko-fe/tsconfig": "^1.2.35",
     "@types/throttle-debounce": "^5.0.0",
     "bumpp": "^9.2.0",
     "conventional-changelog-cli": "^2.2.2",
