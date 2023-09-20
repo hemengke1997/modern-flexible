@@ -1,3 +1,17 @@
+## [0.0.3](https://github.com/hemengke1997/modern-flexible/compare/v0.0.2...v0.0.3) (2023-09-20)
+
+
+### Bug Fixes
+
+* deploy ([eac59a2](https://github.com/hemengke1997/modern-flexible/commit/eac59a2c38e01caf8ed78d4a83cbe81596e26080))
+
+
+### Features
+
+* add default `distinctDevice` ([5d79df4](https://github.com/hemengke1997/modern-flexible/commit/5d79df400edc3ecd19a12ffaff74af43be07558f))
+
+
+
 ## [0.0.2](https://github.com/hemengke1997/modern-flexible/compare/v0.0.1...v0.0.2) (2023-09-08)
 
 

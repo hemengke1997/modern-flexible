@@ -1,7 +1,7 @@
 {
   "name": "modern-flexible",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "packageManager": "pnpm@8.1.1",
   "description": "现代多设备伸缩布局方案",
   "author": "hemengke <https://github.com/hemengke1997>",
