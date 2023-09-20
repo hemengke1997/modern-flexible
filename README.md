@@ -6,6 +6,14 @@
 
 [Demo](https://hemengke1997.github.io/modern-flexible/)
 
+## 配置项
+
+| 参数           | 类型     | 默认值                                                                | 描述                                                                                                                                                                       |
+| -------------- | -------- | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| rootValue      | `number` | `16`                                                                  | 根字体大小，最好跟postcss-pxtorem中的rootValue一致                                                                                                                         |
+| resizeOption   | `object` | `{ type: 'debounce', delay: 60 }`                                     | 窗口大小改变时resize防抖或节流配置                                                                                                                                         |
+| distinctDevice | `array`  | `[{ deviceWidthRange: [0, Infinity], isDevice: true, UIWidth: 375 }]` | 不同设备的适配方式。<br/> `deviceWidthRange`定义设备宽度范围（超出范围后不会再触发resize）<br/>`isDevice`用于判断当前窗口是否属于此设备<br/>`UIWidth` 定义对应的设计图宽度 |
+
 ## 基础使用
 
 [playground](./playground/spa/src/App.tsx)
@@ -36,6 +44,6 @@ flexible({
 
 ## vite中使用
 
-在vite中使用，可以搭配 vite-plugin-public-typescript 和 vite-plugin-html，这样就可以在html中直接引入了
+在vite中使用，可以搭配 `vite-plugin-public-typescript` 使用，这样就可以在html中直接引入了
 
 示例请参考 [playground](playground/spa/vite.config.ts)

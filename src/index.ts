@@ -46,7 +46,7 @@ type FlexibleOption = {
    * @description
    * distinct device
    */
-  distinctDevice: {
+  distinctDevice?: {
     /**
      * @description
      * UI design width, AKA the starndard width.
@@ -77,9 +77,10 @@ const DEFAULT_OPTIONS: Partial<FlexibleOption> = {
     type: 'debounce',
     delay: 60,
   },
+  distinctDevice: [{ deviceWidthRange: [0, Infinity], isDevice: true, UIWidth: 375 }],
 }
 
-function flexible(options: FlexibleOption) {
+function flexible(options: FlexibleOption = {}) {
   // ssr disable
   if (typeof window === 'undefined' || typeof document === 'undefined') return
 
