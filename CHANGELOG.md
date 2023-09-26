@@ -1,3 +1,17 @@
+## [0.0.4](https://github.com/hemengke1997/modern-flexible/compare/v0.0.3...v0.0.4) (2023-09-26)
+
+
+### Bug Fixes
+
+* deploy ([a075128](https://github.com/hemengke1997/modern-flexible/commit/a07512851a41f769948be36f9a0a551367cb16fa))
+
+
+### Features
+
+* export `resize` method ([c05ae1a](https://github.com/hemengke1997/modern-flexible/commit/c05ae1acf775c1126e832760ecacc7de8387a562))
+
+
+
 ## [0.0.3](https://github.com/hemengke1997/modern-flexible/compare/v0.0.2...v0.0.3) (2023-09-20)
 
 
