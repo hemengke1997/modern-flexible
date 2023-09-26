@@ -34,7 +34,6 @@
     "dev": "tsup --watch",
     "build": "tsup",
     "build:pages": "pnpm run build && cd playground/spa && pnpm run build",
-    "test": "vitest",
     "preinstall": "npx only-allow pnpm",
     "lint": "eslint .",
     "up": "taze -I -w -r",
@@ -55,7 +54,6 @@
     "pnpm": "^8.7.6",
     "taze": "^0.11.2",
     "tsup": "^7.2.0",
-    "typescript": "^5.2.2",
-    "vitest": "^0.29.8"
+    "typescript": "^5.2.2"
   }
 }
