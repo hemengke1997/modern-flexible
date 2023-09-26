@@ -77,7 +77,7 @@ const DEFAULT_OPTIONS: Partial<FlexibleOption> = {
     type: 'debounce',
     delay: 60,
   },
-  distinctDevice: [{ deviceWidthRange: [0, Infinity], isDevice: true, UIWidth: 375 }],
+  distinctDevice: [{ deviceWidthRange: [0, Number.POSITIVE_INFINITY], isDevice: true, UIWidth: 375 }],
 }
 
 function flexible(options: FlexibleOption = {}) {
@@ -99,14 +99,14 @@ function flexible(options: FlexibleOption = {}) {
   function resize() {
     let width = document.documentElement.clientWidth
 
-    const defaultDevice = distinctDevice[distinctDevice.length - 1]
+    const defaultDevice = distinctDevice.at(-1)
 
     const currentDevice =
       distinctDevice.find((device) =>
         typeof device.isDevice === 'boolean' ? device.isDevice : device.isDevice(width),
       ) || defaultDevice
 
-    if (currentDevice.deviceWidthRange.length !== 2) {
+    if (currentDevice?.deviceWidthRange.length !== 2) {
       throw new Error(genErrorMsg('deviceWidthRange length must be 2'))
     }
 
@@ -125,9 +125,10 @@ function flexible(options: FlexibleOption = {}) {
     }
   }
 
+  // avoid font-size blink
   resize()
 
-  function enhancedResize() {
+  function enhanceResize() {
     if (resizeOption?.type === 'debounce') {
       return debounce(resizeOption.delay, resize, resizeOption.options)
     }
@@ -137,16 +138,23 @@ function flexible(options: FlexibleOption = {}) {
     return resize
   }
 
-  window.addEventListener('resize', enhancedResize())
+  const enhancedResize = enhanceResize()
+
+  window.addEventListener('resize', enhancedResize)
 
   window.addEventListener('pageshow', (e) => {
     if (e.persisted) {
-      enhancedResize()()
+      enhancedResize()
     }
   })
-  window.addEventListener('DOMContentLoaded', enhancedResize())
+  window.addEventListener('DOMContentLoaded', enhancedResize)
 
-  window.addEventListener('pushState', enhancedResize())
+  window.addEventListener('pushState', enhancedResize)
+
+  return {
+    resize,
+    enhancedResize,
+  }
 }
 
 export default flexible
