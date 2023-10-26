@@ -46,7 +46,6 @@
     "bump": "bumpp package.json -c -p -t --all -x \"pnpm run changelog\""
   },
   "dependencies": {
-    "deepmerge": "^4.3.1",
     "throttle-debounce": "^5.0.0"
   },
   "devDependencies": {
