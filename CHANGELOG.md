@@ -1,3 +1,12 @@
+## [0.0.5](https://github.com/hemengke1997/modern-flexible/compare/v0.0.4...v0.0.5) (2023-10-26)
+
+
+### Bug Fixes
+
+* ci ([8fc4159](https://github.com/hemengke1997/modern-flexible/commit/8fc41593b07d0cca8894305ae5120403c8634c0e))
+
+
+
 ## [0.0.4](https://github.com/hemengke1997/modern-flexible/compare/v0.0.3...v0.0.4) (2023-09-26)
 
 
