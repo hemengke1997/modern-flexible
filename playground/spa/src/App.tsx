@@ -1,7 +1,7 @@
 import { useLayoutEffect, useState } from 'react'
 import { useWindowSize } from 'react-use'
-import './App.css'
 import { DEVICE } from './device'
+import './App.css'
 
 function App() {
   const [fontSize, setFontSize] = useState('')
@@ -13,7 +13,7 @@ function App() {
   useLayoutEffect(() => {
     const t = setTimeout(() => {
       setFontSize(document.documentElement.style.fontSize)
-    }, 500)
+    }, 100)
 
     DEVICE.find((d) => {
       if (d.isDevice(size.width)) {
@@ -28,10 +28,23 @@ function App() {
   }, [size])
 
   return (
-    <div className='App'>
-      <h1>当前机型：{device}</h1>
+    <div className='App flex flex-col gap-y-[12px]'>
+      <div className={'flex box'}>
+        <div className={'text-[24px] font-bold'}>预定义机型：</div>
+        <div className={'flex divide-x'}>
+          {DEVICE.map((d) => (
+            <div key={d.type} className={'px-[8px]'}>
+              【{d.type}】字体变化的窗口范围：{d.deviceWidthRange[0]}px~{d.deviceWidthRange[1]}px
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className={'text-2xl font-bold mt-[12px]'}>当前机型：{device}</div>
+      <div className={'text-2xl font-bold'}>当前html根font-size: {fontSize}</div>
 
-      <h2>font-size: {fontSize}</h2>
+      <div className={'text-2xl font-bold text-orange-400 mt-[32px]'}>
+        请缩放浏览器窗口大小，可观察到机型和font-size变化
+      </div>
     </div>
   )
 }

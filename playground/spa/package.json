@@ -18,6 +18,8 @@
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.1.0",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.7",
     "typescript": "^5.2.2",
     "vite": "^4.4.9",
     "vite-plugin-public-typescript": "^1.5.5"

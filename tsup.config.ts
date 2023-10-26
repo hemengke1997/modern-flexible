@@ -5,10 +5,11 @@ export const tsup = defineConfig((option) => ({
   dts: true,
   clean: true,
   format: ['cjs', 'esm'],
-  platform: 'node',
+  platform: 'browser',
   splitting: false,
   treeshake: true,
   minify: false,
   sourcemap: !!option.watch,
   tsconfig: option.watch ? 'tsconfig.dev.json' : 'tsconfig.json',
+  target: 'es2015',
 }))

@@ -1,4 +1,3 @@
-import deepmerge from 'deepmerge'
 import { debounce, throttle } from 'throttle-debounce'
 
 interface DebounceOptions {
@@ -42,6 +41,7 @@ type FlexibleOption = {
         delay?: number
         options?: ThrottleOptions
       }
+    | false
   /**
    * @description
    * distinct device
@@ -82,9 +82,14 @@ const DEFAULT_OPTIONS: Partial<FlexibleOption> = {
 
 function flexible(options: FlexibleOption = {}) {
   // ssr disable
-  if (typeof window === 'undefined' || typeof document === 'undefined') return
+  if (typeof window === 'undefined' || typeof document === 'undefined') {
+    throw new TypeError(genErrorMsg('current environment is not browser'))
+  }
 
-  options = deepmerge(options, DEFAULT_OPTIONS)
+  options = {
+    ...DEFAULT_OPTIONS,
+    ...options,
+  }
 
   const { rootValue, resizeOption, distinctDevice } = options as DeepRequired<FlexibleOption>
 
@@ -97,8 +102,7 @@ function flexible(options: FlexibleOption = {}) {
   }
 
   function resize() {
-    let width = document.documentElement.clientWidth
-
+    let width = window.document.documentElement.clientWidth
     const defaultDevice = distinctDevice.at(-1)
 
     const currentDevice =
@@ -106,11 +110,10 @@ function flexible(options: FlexibleOption = {}) {
         typeof device.isDevice === 'boolean' ? device.isDevice : device.isDevice(width),
       ) || defaultDevice
 
-    if (currentDevice?.deviceWidthRange.length !== 2) {
-      throw new Error(genErrorMsg('deviceWidthRange length must be 2'))
-    }
-
-    if (currentDevice) {
+    if (currentDevice?.isDevice) {
+      if (currentDevice.deviceWidthRange.length !== 2) {
+        throw new Error(genErrorMsg('deviceWidthRange length must be 2'))
+      }
       if (width >= currentDevice.deviceWidthRange[1]) {
         width = currentDevice.deviceWidthRange[1]
       } else if (width <= currentDevice.deviceWidthRange[0]) {
@@ -129,6 +132,12 @@ function flexible(options: FlexibleOption = {}) {
   resize()
 
   function enhanceResize() {
+    if (resizeOption === false || !resizeOption) {
+      return resize
+    }
+    if (typeof resizeOption !== 'object') {
+      throw new TypeError(genErrorMsg('resizeOption must be object'))
+    }
     if (resizeOption?.type === 'debounce') {
       return debounce(resizeOption.delay, resize, resizeOption.options)
     }
