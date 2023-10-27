@@ -12,7 +12,7 @@ export async function getFontsize(el: string): Promise<string> {
 }
 
 export async function getRem() {
-  return await getFontsize('html')
+  return getFontsize('html')
 }
 
 export async function sleep(time: number) {
@@ -23,4 +23,4 @@ export async function sleep(time: number) {
   })
 }
 
-export const timeout = 150
+export const timeout = process.env.CI ? 300 : 100

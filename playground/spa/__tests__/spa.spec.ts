@@ -1,11 +1,5 @@
 import { getRem, page, sleep, timeout, viteTestUrl } from '~utils'
-import { beforeAll, beforeEach, describe, expect, test } from 'vitest'
-
-declare module 'vitest' {
-  export interface TestContext {
-    rem: string
-  }
-}
+import { beforeAll, describe, expect, test } from 'vitest'
 
 describe('pxtorem - phone', () => {
   beforeAll(async () => {
@@ -16,11 +10,9 @@ describe('pxtorem - phone', () => {
     await page.goto(viteTestUrl)
   })
 
-  beforeEach(async (ctx) => {
-    ctx.rem = await getRem()
-  })
+  test('should 1rem to be 16px', async () => {
+    const rem = await getRem()
 
-  test('should 1rem to be 16px', ({ rem }) => {
     expect(rem).toBe('16px')
   })
 
@@ -54,11 +46,8 @@ describe('pxtorem - pad', () => {
     await page.goto(viteTestUrl)
   })
 
-  beforeEach(async (ctx) => {
-    ctx.rem = await getRem()
-  })
-
-  test('should 1rem to be 14px', ({ rem }) => {
+  test('should 1rem to be 14px', async () => {
+    const rem = await getRem()
     expect(rem).toBe('14px')
   })
 
@@ -102,11 +91,8 @@ describe('pxtorem - pc', () => {
     await page.goto(viteTestUrl)
   })
 
-  beforeEach(async (ctx) => {
-    ctx.rem = await getRem()
-  })
-
-  test('should 1rem to be 16px', ({ rem }) => {
+  test('should 1rem to be 16px', async () => {
+    const rem = await getRem()
     expect(rem).toBe('16px')
   })
 
