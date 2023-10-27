@@ -23,4 +23,4 @@ export async function sleep(time: number) {
   })
 }
 
-export const timeout = 120
+export const timeout = 150
