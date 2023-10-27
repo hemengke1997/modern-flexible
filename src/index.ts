@@ -142,7 +142,10 @@ function flexible(options: FlexibleOption = {}) {
       return debounce(resizeOption.delay, resize, resizeOption.options)
     }
     if (resizeOption?.type === 'throttle') {
-      return throttle(resizeOption.delay, resize, resizeOption.options)
+      return throttle(resizeOption.delay, resize, {
+        ...resizeOption.options,
+        noLeading: resizeOption.options?.noLeading ?? true,
+      })
     }
     return resize
   }
@@ -156,7 +159,6 @@ function flexible(options: FlexibleOption = {}) {
       enhancedResize()
     }
   })
-  window.addEventListener('DOMContentLoaded', enhancedResize)
 
   window.addEventListener('pushState', enhancedResize)
 

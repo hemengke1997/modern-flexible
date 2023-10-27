@@ -1,10 +1,19 @@
-// @vitest-environment happy-dom
+// @vitest-environment jsdom
 
-import { GlobalWindow } from 'happy-dom'
-import { describe, expect, test, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { flexible } from '../src'
+import { getHtmlFontSize, setClientWidth } from './test-utils'
 
 describe('morder flexible', () => {
+  beforeEach(() => {
+    vi.useFakeTimers()
+  })
+  afterEach(() => {
+    setClientWidth(0)
+    vi.restoreAllMocks()
+    vi.clearAllTimers()
+  })
+
   test('should throw rootValue must be greater than 0 when rootValue is 0', () => {
     expect(() =>
       flexible({
@@ -49,21 +58,51 @@ describe('morder flexible', () => {
     ).toThrowError('no device matched')
   })
 
-  test('should resize called', () => {
+  test('should resize immediately', () => {
     const flex = flexible({ resizeOption: false })
-
-    const globalWindow = new GlobalWindow()
-    globalWindow.eval('window.document.documentElement.clientWidth = 375')
-
+    setClientWidth(375)
     flex.enhancedResize()
-    expect(document.documentElement.style.fontSize).toBe('16px')
+    expect(getHtmlFontSize()).toBe('16px')
   })
 
   test('should resize debounce', async () => {
     const flex = flexible({ resizeOption: { delay: 60, type: 'debounce' } })
-    const spyEnhanced = vi.fn(flex.enhancedResize)
+    setClientWidth(375)
+    const resizeFn = vi.fn(flex.enhancedResize)
+    resizeFn()
+    expect(getHtmlFontSize()).toBe('0px')
+    resizeFn()
+    vi.advanceTimersByTime(59)
+    expect(getHtmlFontSize()).toBe('0px')
+    resizeFn()
+    vi.advanceTimersByTime(59)
+    expect(getHtmlFontSize()).toBe('0px')
+    expect(vi.getTimerCount()).toBe(1)
+    vi.advanceTimersByTime(1)
+    expect(getHtmlFontSize()).toBe('16px')
+    setClientWidth(0)
+    resizeFn()
+    vi.clearAllTimers()
+    vi.advanceTimersByTime(60)
+    expect(getHtmlFontSize()).toBe('16px')
+  })
 
-    spyEnhanced()
-    expect(spyEnhanced).toHaveBeenCalledTimes(1)
+  test('should resize throttle', async () => {
+    const flex = flexible({ resizeOption: { delay: 1000, type: 'throttle' } })
+    const resizeFn = vi.fn(flex.enhancedResize)
+
+    setClientWidth(375)
+    resizeFn()
+    expect(getHtmlFontSize()).toBe('0px')
+    vi.advanceTimersByTime(1000)
+    expect(getHtmlFontSize()).toBe('16px')
+
+    setClientWidth(750)
+    resizeFn()
+    resizeFn()
+    expect(getHtmlFontSize()).toBe('16px')
+    expect(vi.getTimerCount()).toBe(1)
+    vi.advanceTimersByTime(1000)
+    expect(getHtmlFontSize()).toBe('32px')
   })
 })
