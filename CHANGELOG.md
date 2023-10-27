@@ -1,3 +1,12 @@
+## [0.0.6](https://github.com/hemengke1997/modern-flexible/compare/v0.0.5...v0.0.6) (2023-10-27)
+
+
+### Bug Fixes
+
+* double resize on loaded ([ec05f50](https://github.com/hemengke1997/modern-flexible/commit/ec05f505807282489b227a2d5f49fee38c67d70c))
+
+
+
 ## [0.0.5](https://github.com/hemengke1997/modern-flexible/compare/v0.0.4...v0.0.5) (2023-10-26)
 
 
