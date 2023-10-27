@@ -23,7 +23,6 @@ export default defineConfig({
     globalSetup: ['./playground/vitestGlobalSetup.ts'],
     server: {
       deps: {
-        inline: ['vitest-e2e'],
         fallbackCJS: true,
       },
     },

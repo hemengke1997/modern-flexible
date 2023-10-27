@@ -31,8 +31,8 @@ flexible({
   // 具体宽度设定请自行定义
   distinctDevice: [
     { isDevice: (clientWidth: number) => clientWidth < 750, UIWidth: 375, deviceWidthRange: [300, 375] }, // 手机
-    { isDevice: (clientWidth: number) => clientWidth >= 750 && clientWidth < 1280, UIWidth: 1280, deviceWidthRange: [960, 1280] }, // 平板
-    { isDevice: (clientWidth: number) => clientWidth >= 1280, UIWidth: 1920, deviceWidthRange: [1280, 1920] }, // 电脑
+    { isDevice: (clientWidth: number) => clientWidth >= 750 && clientWidth <= 1280, UIWidth: 1280, deviceWidthRange: [960, 1280] }, // 平板
+    { isDevice: (clientWidth: number) => clientWidth > 1280, UIWidth: 1920, deviceWidthRange: [1280, 1920] }, // 电脑
   ],
 })
 ```
