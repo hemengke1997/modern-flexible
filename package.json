@@ -1,6 +1,6 @@
 {
   "name": "modern-flexible",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "packageManager": "pnpm@8.7.6",
   "description": "现代多设备伸缩布局方案",
   "type": "module",

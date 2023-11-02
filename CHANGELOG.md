@@ -1,3 +1,12 @@
+## [0.0.7](https://github.com/hemengke1997/modern-flexible/compare/v0.0.6...v0.0.7) (2023-11-02)
+
+
+### Bug Fixes
+
+* remove `at` to enhance compatibility ([37473f8](https://github.com/hemengke1997/modern-flexible/commit/37473f870db6e2f73637d54b4bcffdd096dbc032))
+
+
+
 ## [0.0.6](https://github.com/hemengke1997/modern-flexible/compare/v0.0.5...v0.0.6) (2023-10-27)
 
 
