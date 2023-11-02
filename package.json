@@ -50,9 +50,9 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^18.0.0",
-    "@minko-fe/commitlint-config": "^2.0.4",
-    "@minko-fe/eslint-config": "^2.0.4",
-    "@minko-fe/tsconfig": "^2.0.4",
+    "@minko-fe/commitlint-config": "^2.0.5",
+    "@minko-fe/eslint-config": "^2.0.5",
+    "@minko-fe/tsconfig": "^2.0.5",
     "@types/debug": "^4.1.9",
     "@types/fs-extra": "^11.0.2",
     "@types/node": "^20.8.6",

@@ -22,6 +22,6 @@
     "tailwindcss": "^3.2.7",
     "typescript": "^5.2.2",
     "vite": "^4.4.9",
-    "vite-plugin-public-typescript": "^1.5.5"
+    "vite-plugin-public-typescript": "^2.0.2"
   }
 }

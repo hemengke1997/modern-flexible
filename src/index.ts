@@ -103,7 +103,7 @@ function flexible(options: FlexibleOption = {}) {
 
   function resize() {
     let width = window.document.documentElement.clientWidth
-    const defaultDevice = distinctDevice.at(-1)
+    const defaultDevice = distinctDevice[distinctDevice.length - 1]
 
     const currentDevice =
       distinctDevice.find((device) =>
