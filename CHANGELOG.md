@@ -1,3 +1,12 @@
+## [0.0.8](https://github.com/hemengke1997/modern-flexible/compare/v0.0.7...v0.0.8) (2023-12-15)
+
+
+### Bug Fixes
+
+* remove pnpm restriction ([ce077f2](https://github.com/hemengke1997/modern-flexible/commit/ce077f254cffe03a482f66ea1c23b8b8cc8eb32c))
+
+
+
 ## [0.0.7](https://github.com/hemengke1997/modern-flexible/compare/v0.0.6...v0.0.7) (2023-11-02)
 
 
