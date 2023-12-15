@@ -68,7 +68,7 @@
     "typescript": "^5.2.2",
     "vite": "^4.4.11",
     "vitest": "^0.34.5",
-    "vitest-e2e": "^0.0.8"
+    "vitest-e2e": "^0.0.10"
   },
   "simple-git-hooks": {
     "commit-msg": "pnpm exec commitlint -e"
