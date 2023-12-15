@@ -7,7 +7,7 @@ export default defineConfig(() => ({
   base: '/modern-flexible/',
   plugins: [
     react(),
-    publicTypescript({ sideEffects: true }),
+    publicTypescript(),
     injectScripts((manifest) => [
       {
         attrs: {
