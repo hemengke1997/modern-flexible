@@ -13,7 +13,7 @@ export default defineConfig(() => ({
         attrs: {
           src: manifest.flexible,
         },
-        injectTo: 'head-prepend',
+        injectTo: 'head',
       },
     ]),
   ],

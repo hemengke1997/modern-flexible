@@ -20,8 +20,8 @@ type DeepRequired<T> = T extends Primitive
       [P in keyof T]-?: T[P] extends Array<infer U>
         ? Array<DeepRequired<U>>
         : T[P] extends ReadonlyArray<infer U2>
-        ? DeepRequired<U2>
-        : DeepRequired<T[P]>
+          ? DeepRequired<U2>
+          : DeepRequired<T[P]>
     }
 
 type FlexibleOption = {
@@ -61,7 +61,7 @@ type FlexibleOption = {
      * @description
      * whether the current window width is this device
      */
-    isDevice: ((clientWidth: number) => boolean) | boolean
+    isDevice: ((width: number) => boolean) | boolean
   }[]
 }
 
@@ -101,8 +101,14 @@ function flexible(options: FlexibleOption = {}) {
     throw new Error(genErrorMsg('distinctDevice needed'))
   }
 
+  function isLandscape() {
+    return window.matchMedia('(orientation: landscape)').matches
+  }
+
   function resize() {
-    let width = window.document.documentElement.clientWidth
+    const landscape = isLandscape()
+    let width = window.document.documentElement[landscape ? 'clientHeight' : 'clientWidth']
+
     const defaultDevice = distinctDevice[distinctDevice.length - 1]
 
     const currentDevice =
@@ -156,11 +162,15 @@ function flexible(options: FlexibleOption = {}) {
 
   window.addEventListener('pageshow', (e) => {
     if (e.persisted) {
-      enhancedResize()
+      resize()
     }
   })
 
-  window.addEventListener('pushState', enhancedResize)
+  window.addEventListener('orientationchange', () => {
+    resize()
+  })
+
+  window.addEventListener('pushState', resize)
 
   return {
     resize,

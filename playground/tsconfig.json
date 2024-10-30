@@ -9,5 +9,5 @@
     "strict": false
   },
   "include": ["."],
-  "exclude": ["**/dist/**"]
+  "exclude": ["**/dist/**", "node_modules"]
 }

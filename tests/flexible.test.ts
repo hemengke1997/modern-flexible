@@ -1,13 +1,28 @@
 // @vitest-environment jsdom
 
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, test, vi } from 'vitest'
 import { flexible } from '../src'
-import { getHtmlFontSize, setClientWidth } from './test-utils'
+import { getHtmlFontSize, setClientHeight, setClientWidth } from './test-utils'
 
-describe('morder flexible', () => {
+describe('modern flexible', () => {
+  beforeAll(() => {
+    window.matchMedia = function () {
+      return {
+        matches: false,
+        addListener() {},
+        removeListener() {},
+      }
+    } as any
+  })
+
+  afterAll(() => {
+    vi.restoreAllMocks()
+  })
+
   beforeEach(() => {
     vi.useFakeTimers()
   })
+
   afterEach(() => {
     setClientWidth(0)
     vi.restoreAllMocks()
@@ -104,5 +119,39 @@ describe('morder flexible', () => {
     expect(vi.getTimerCount()).toBe(1)
     vi.advanceTimersByTime(1000)
     expect(getHtmlFontSize()).toBe('32px')
+  })
+})
+
+describe('landscape', () => {
+  beforeEach(() => {
+    vi.useFakeTimers()
+    window.matchMedia = function () {
+      return {
+        matches: true,
+        addListener() {},
+        removeListener() {},
+      }
+    } as any
+  })
+
+  afterAll(() => {
+    vi.restoreAllMocks()
+  })
+
+  test('basic', () => {
+    const flex = flexible({
+      resizeOption: false,
+      distinctDevice: [
+        {
+          deviceWidthRange: [375, 750],
+          isDevice: true,
+          UIWidth: 750,
+        },
+      ],
+    })
+    setClientHeight(375)
+    setClientWidth(666)
+    flex.resize()
+    expect(getHtmlFontSize()).toBe('8px')
   })
 })

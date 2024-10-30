@@ -29,7 +29,7 @@ function App() {
 
   return (
     <div className='App flex flex-col gap-y-[12px]'>
-      <div className={'flex box'}>
+      <div className={'box flex'}>
         <div className={'text-[24px] font-bold'}>预定义机型：</div>
         <div className={'flex divide-x'}>
           {DEVICE.map((d) => (
@@ -39,10 +39,10 @@ function App() {
           ))}
         </div>
       </div>
-      <div className={'text-2xl font-bold mt-[12px]'}>当前机型：{device}</div>
+      <div className={'mt-[12px] text-2xl font-bold'}>当前机型：{device}</div>
       <div className={'text-2xl font-bold'}>当前html根font-size: {fontSize}</div>
 
-      <div className={'text-2xl font-bold text-orange-400 mt-[32px]'}>
+      <div className={'mt-[32px] text-2xl font-bold text-orange-400'}>
         请缩放浏览器窗口大小，可观察到机型和font-size变化
       </div>
     </div>
