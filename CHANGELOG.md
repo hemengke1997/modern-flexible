@@ -1,3 +1,12 @@
+# [1.0.0](https://github.com/hemengke1997/modern-flexible/compare/v0.0.8...v1.0.0) (2024-10-30)
+
+
+### Features
+
+* support landscape ([9dc98d4](https://github.com/hemengke1997/modern-flexible/commit/9dc98d49b02f19ee15068c7a2701d6435d152270))
+
+
+
 ## [0.0.8](https://github.com/hemengke1997/modern-flexible/compare/v0.0.7...v0.0.8) (2023-12-15)
 
 
