@@ -37,13 +37,31 @@ flexible({
 })
 ```
 
-## tailwindcss
+### html中引入
 
-可配合 `tailwindcss` 实现多设备 自适应 + 响应式布局
+```html
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <!-- 尽早引入flexible，避免页面闪烁 -->
+  <script type="module" src="/src/flexible.ts"></script>
+</head>
 
-## vite中使用
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>
+```
+
+### 配合vite插件使用（进阶）
 
 在vite中使用，可以搭配 `vite-plugin-public-typescript` 使用，这样就可以在html中直接引入了
 
 示例请参考 [playground](playground/spa/vite.config.ts)
+
+## tailwindcss
+
+可配合 `tailwindcss` 实现多设备 自适应 + 响应式布局

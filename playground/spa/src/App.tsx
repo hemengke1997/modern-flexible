@@ -16,6 +16,7 @@ function App() {
     }, 100)
 
     DEVICE.find((d) => {
+      console.log(size.width, 'size.width')
       if (d.isDevice(size.width)) {
         setDevice(d.type)
         return true
