@@ -1,3 +1,12 @@
+# [1.1.0](https://github.com/hemengke1997/modern-flexible/compare/v1.0.1...v1.1.0) (2024-12-20)
+
+
+### Features
+
+* add landscape option ([04e1320](https://github.com/hemengke1997/modern-flexible/commit/04e132078a3db7197737953525d3d08051fa9951))
+
+
+
 ## [1.0.1](https://github.com/hemengke1997/modern-flexible/compare/v1.0.0...v1.0.1) (2024-12-20)
 
 
