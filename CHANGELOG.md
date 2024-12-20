@@ -1,3 +1,12 @@
+## [1.0.1](https://github.com/hemengke1997/modern-flexible/compare/v1.0.0...v1.0.1) (2024-12-20)
+
+
+### Bug Fixes
+
+* landscope ([c8e390a](https://github.com/hemengke1997/modern-flexible/commit/c8e390aef989e1676fe5694b9a2a1600849ee155))
+
+
+
 # [1.0.0](https://github.com/hemengke1997/modern-flexible/compare/v0.0.8...v1.0.0) (2024-10-30)
 
 
