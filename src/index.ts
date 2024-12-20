@@ -102,7 +102,11 @@ function flexible(options: FlexibleOption = {}) {
   }
 
   function isLandscape() {
-    return window.matchMedia('(orientation: landscape)').matches
+    const { orientation } = screen
+    if (orientation) {
+      return orientation.type.includes('landscape') && orientation.angle === 90
+    }
+    return false
   }
 
   function resize() {
