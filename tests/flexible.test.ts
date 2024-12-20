@@ -1,20 +1,10 @@
 // @vitest-environment jsdom
 
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, test, vi } from 'vitest'
+import { afterAll, afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { flexible } from '../src'
 import { getHtmlFontSize, setClientHeight, setClientWidth } from './test-utils'
 
 describe('modern flexible', () => {
-  beforeAll(() => {
-    window.matchMedia = function () {
-      return {
-        matches: false,
-        addListener() {},
-        removeListener() {},
-      }
-    } as any
-  })
-
   afterAll(() => {
     vi.restoreAllMocks()
   })
@@ -123,17 +113,6 @@ describe('modern flexible', () => {
 })
 
 describe('landscape', () => {
-  beforeEach(() => {
-    vi.useFakeTimers()
-    window.matchMedia = function () {
-      return {
-        matches: true,
-        addListener() {},
-        removeListener() {},
-      }
-    } as any
-  })
-
   afterAll(() => {
     vi.restoreAllMocks()
   })
@@ -148,6 +127,7 @@ describe('landscape', () => {
           UIWidth: 750,
         },
       ],
+      landscape: true,
     })
     setClientHeight(375)
     setClientWidth(666)

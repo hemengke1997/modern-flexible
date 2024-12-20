@@ -3,51 +3,53 @@ import { beforeAll, describe, expect, test } from 'vitest'
 
 describe('pxtorem - phone', () => {
   beforeAll(async () => {
-    await page.setViewportSize({
-      width: 750,
-      height: 1000,
-    })
-    console.log(viteTestUrl, 'viteTestUrl')
     await page.goto(viteTestUrl)
   })
 
   test('should 1rem to be 16px', async () => {
+    await page.setViewportSize({
+      width: 375,
+      height: 1000,
+    })
+
     const rem = await getRem()
 
     expect(rem).toBe('16px')
   })
 
-  test('should font-size change to 8px when resize to 375', async () => {
+  test('should font-size change to 16px when resize to 375', async () => {
     await page.setViewportSize({
       width: 375,
       height: 4000,
     })
     await sleep(timeout)
     const rem = await getRem()
-    expect(rem).toBe('8px')
+    expect(rem).toBe('16px')
   })
 
-  test('should font-size change to 8px when resize to 300', async () => {
+  test('should font-size change to 12.8px when resize to 300', async () => {
     await page.setViewportSize({
       width: 300,
       height: 4000,
     })
     await sleep(timeout)
     const rem = await getRem()
-    expect(rem).toBe('8px')
+    expect(rem).toBe('12.8px')
   })
 })
 
 describe('pxtorem - pad', () => {
   beforeAll(async () => {
-    await page.setViewportSize({
-      width: 1280,
-      height: 4000,
-    })
     await page.goto(viteTestUrl)
   })
 
   test('should 1rem to be 16px', async () => {
+    await page.setViewportSize({
+      width: 1280,
+      height: 4000,
+    })
+    await sleep(timeout)
+
     const rem = await getRem()
     expect(rem).toBe('16px')
   })

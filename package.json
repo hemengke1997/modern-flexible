@@ -43,7 +43,7 @@
     "lint": "eslint .",
     "prepare": "simple-git-hooks",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
-    "bump": "bumpp package.json -c -p -t --all -x \"pnpm run changelog\""
+    "bump": "bumpp package.json -c --no-push -t --all -x \"pnpm run changelog\""
   },
   "dependencies": {
     "throttle-debounce": "^5.0.2"

@@ -63,6 +63,11 @@ type FlexibleOption = {
      */
     isDevice: ((width: number) => boolean) | boolean
   }[]
+  /**
+   * @description
+   * whether use landscape mode
+   */
+  landscape?: boolean
 }
 
 function genErrorMsg(msg: string) {
@@ -101,17 +106,8 @@ function flexible(options: FlexibleOption = {}) {
     throw new Error(genErrorMsg('distinctDevice needed'))
   }
 
-  function isLandscape() {
-    const { orientation } = screen
-    if (orientation) {
-      return orientation.type.includes('landscape') && orientation.angle === 90
-    }
-    return false
-  }
-
   function resize() {
-    const landscape = isLandscape()
-    let width = window.document.documentElement[landscape ? 'clientHeight' : 'clientWidth']
+    let width = window.document.documentElement[options.landscape ? 'clientHeight' : 'clientWidth']
 
     const defaultDevice = distinctDevice[distinctDevice.length - 1]
 

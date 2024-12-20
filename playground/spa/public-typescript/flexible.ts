@@ -1,4 +1,4 @@
 import { flexible } from 'modern-flexible'
 import { DEVICE } from '../src/device'
 
-flexible({ distinctDevice: DEVICE })
+flexible({ distinctDevice: DEVICE, rootValue: 16 })
