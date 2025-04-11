@@ -6,7 +6,7 @@ import './App.css'
 function App() {
   const [fontSize, setFontSize] = useState('')
 
-  const [device, setDevice] = useState('')
+  const [devices, setDevice] = useState('')
 
   const size = useWindowSize()
 
@@ -16,7 +16,7 @@ function App() {
     }, 100)
 
     DEVICE.find((d) => {
-      if (d.isDevice(size.width)) {
+      if (d.match(size.width)) {
         setDevice(d.type)
         return true
       }
@@ -34,12 +34,12 @@ function App() {
         <div className={'flex divide-x'}>
           {DEVICE.map((d) => (
             <div key={d.type} className={'px-[8px]'}>
-              【{d.type}】字体变化的窗口范围：{d.deviceWidthRange[0]}px~{d.deviceWidthRange[1]}px
+              【{d.type}】字体变化的窗口范围：{d.range[0]}px~{d.range[1]}px
             </div>
           ))}
         </div>
       </div>
-      <div className={'mt-[12px] text-2xl font-bold'}>当前机型：{device}</div>
+      <div className={'mt-[12px] text-2xl font-bold'}>当前机型：{devices}</div>
       <div className={'text-2xl font-bold'}>当前html根font-size: {fontSize}</div>
 
       <div className={'mt-[32px] text-2xl font-bold text-orange-400'}>

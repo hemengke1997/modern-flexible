@@ -1,3 +1,4 @@
 {
-  "extends": "@minko-fe/tsconfig/tsconfig.lib"
+  "extends": "@minko-fe/tsconfig/tsconfig.lib",
+  "exclude": ["node_modules", "dist"]
 }

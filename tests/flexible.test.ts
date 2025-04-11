@@ -1,14 +1,10 @@
 // @vitest-environment jsdom
 
-import { afterAll, afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { flexible } from '../src'
 import { getHtmlFontSize, setClientHeight, setClientWidth } from './test-utils'
 
 describe('modern flexible', () => {
-  afterAll(() => {
-    vi.restoreAllMocks()
-  })
-
   beforeEach(() => {
     vi.useFakeTimers()
   })
@@ -17,114 +13,144 @@ describe('modern flexible', () => {
     setClientWidth(0)
     vi.restoreAllMocks()
     vi.clearAllTimers()
+    vi.useRealTimers()
   })
 
-  test('should throw rootValue must be greater than 0 when rootValue is 0', () => {
+  it('should throw rootValue must be greater than 0 when rootValue is 0', () => {
     expect(() =>
       flexible({
         rootValue: 0,
+        devices: [
+          {
+            base: 750,
+            match: true,
+            range: [375, 750],
+          },
+        ],
       }),
     ).toThrowError('rootValue must be greater than 0')
   })
 
-  test('should throw distinctDevice needed when distinctDevice is empty', () => {
+  it('should throw range length must be 2 when range length is not 2', () => {
     expect(() =>
       flexible({
-        distinctDevice: [],
-      }),
-    ).toThrowError('distinctDevice needed')
-  })
-
-  test('should throw deviceWidthRange length must be 2 when deviceWidthRange length is not 2', () => {
-    expect(() =>
-      flexible({
-        distinctDevice: [
+        devices: [
           {
-            deviceWidthRange: [0],
-            isDevice: true,
-            UIWidth: 0,
+            range: [0],
+            match: true,
+            base: 0,
           },
         ],
       }),
-    ).toThrowError('deviceWidthRange length must be 2')
+    ).toThrowError('range length must be 2')
   })
 
-  test('should throw no device matched when no device matched', () => {
+  it('should throw no devices matched when no devices matched', () => {
     expect(() =>
       flexible({
-        distinctDevice: [
+        devices: [
           {
-            deviceWidthRange: [0, 100],
-            isDevice: false,
-            UIWidth: 0,
+            range: [0, 100],
+            match: false,
+            base: 0,
           },
         ],
       }),
-    ).toThrowError('no device matched')
+    ).toThrowError('no devices matched')
   })
 
-  test('should resize immediately', () => {
-    const flex = flexible({ resizeOption: false })
+  it('should resize immediately', () => {
+    const flex = flexible({
+      resizeOption: false,
+      devices: [
+        {
+          base: 375,
+          match: true,
+          range: [375, 750],
+        },
+      ],
+    })
     setClientWidth(375)
     flex.enhancedResize()
     expect(getHtmlFontSize()).toBe('16px')
   })
 
-  test('should resize debounce', async () => {
-    const flex = flexible({ resizeOption: { delay: 60, type: 'debounce' } })
-    setClientWidth(375)
-    const resizeFn = vi.fn(flex.enhancedResize)
-    resizeFn()
-    expect(getHtmlFontSize()).toBe('0px')
-    resizeFn()
-    vi.advanceTimersByTime(59)
-    expect(getHtmlFontSize()).toBe('0px')
-    resizeFn()
-    vi.advanceTimersByTime(59)
-    expect(getHtmlFontSize()).toBe('0px')
-    expect(vi.getTimerCount()).toBe(1)
-    vi.advanceTimersByTime(1)
+  it('should apply debounce correctly', async () => {
+    const flex = flexible({
+      resizeOption: {
+        type: 'debounce',
+        delay: 100,
+      },
+      devices: [
+        {
+          base: 375,
+          match: true,
+          range: [375, 750],
+        },
+      ],
+    })
+
+    setClientWidth(1280)
+
+    flex.enhancedResize()
+    flex.enhancedResize()
+    flex.enhancedResize()
+
     expect(getHtmlFontSize()).toBe('16px')
-    setClientWidth(0)
-    resizeFn()
-    vi.clearAllTimers()
-    vi.advanceTimersByTime(60)
+
+    vi.advanceTimersByTime(50)
     expect(getHtmlFontSize()).toBe('16px')
+
+    vi.advanceTimersByTime(50)
+    expect(getHtmlFontSize()).toBe('32px')
   })
 
-  test('should resize throttle', async () => {
-    const flex = flexible({ resizeOption: { delay: 1000, type: 'throttle' } })
-    const resizeFn = vi.fn(flex.enhancedResize)
+  it('should apply throttle correctly', async () => {
+    const flex = flexible({
+      resizeOption: {
+        type: 'throttle',
+        delay: 100,
+      },
+      devices: [
+        {
+          base: 375,
+          match: true,
+          range: [375, 750],
+        },
+      ],
+    })
 
-    setClientWidth(375)
-    resizeFn()
-    expect(getHtmlFontSize()).toBe('0px')
-    vi.advanceTimersByTime(1000)
+    setClientWidth(1280)
+
+    flex.enhancedResize()
+    flex.enhancedResize()
+    flex.enhancedResize()
+
     expect(getHtmlFontSize()).toBe('16px')
 
-    setClientWidth(750)
-    resizeFn()
-    resizeFn()
+    vi.advanceTimersByTime(50)
+    flex.enhancedResize()
     expect(getHtmlFontSize()).toBe('16px')
-    expect(vi.getTimerCount()).toBe(1)
-    vi.advanceTimersByTime(1000)
+
+    vi.advanceTimersByTime(50)
+    flex.enhancedResize()
     expect(getHtmlFontSize()).toBe('32px')
   })
 })
 
 describe('landscape', () => {
-  afterAll(() => {
+  afterEach(() => {
     vi.restoreAllMocks()
   })
 
-  test('basic', () => {
+  it('basic', () => {
     const flex = flexible({
       resizeOption: false,
-      distinctDevice: [
+      devices: [
         {
-          deviceWidthRange: [375, 750],
-          isDevice: true,
-          UIWidth: 750,
+          range: [375, 750],
+          match: true,
+          base: 750,
         },
       ],
       landscape: true,

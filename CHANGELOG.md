@@ -85,7 +85,7 @@
 
 ### Features
 
-* add default `distinctDevice` ([5d79df4](https://github.com/hemengke1997/modern-flexible/commit/5d79df400edc3ecd19a12ffaff74af43be07558f))
+* add default `devices` ([5d79df4](https://github.com/hemengke1997/modern-flexible/commit/5d79df400edc3ecd19a12ffaff74af43be07558f))
 
 
 

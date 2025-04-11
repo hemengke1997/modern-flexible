@@ -29,6 +29,7 @@ type FlexibleOption = {
   /**
    * @description
    * resize event trigger mode
+   * resize 事件触发模式，分为节流和防抖
    */
   resizeOption?:
     | {
@@ -44,24 +45,31 @@ type FlexibleOption = {
     | false
   /**
    * @description
-   * distinct device
+   * distinct devices
+   * 设备列表
    */
-  distinctDevice?: {
+  devices?: {
     /**
      * @description
-     * UI design width, AKA the starndard width.
+     * Base width, usually the width of the design UI
+     *
+     * 基准宽度，通常是设计稿宽度
      */
-    UIWidth: number
+    base: number
     /**
      * @description
-     * device width range (if width is out of range, use the edge value of the closed interval)
+     * devices width range (if width is out of range, use the edge value of the closed interval)
+     *
+     * 设备宽度范围（如果宽度超出范围，则使用闭区间的边值）
      */
-    deviceWidthRange: number[]
+    range: number[]
     /**
      * @description
-     * whether the current window width is this device
+     * whether the window width match current devices
+     *
+     * 窗口宽度是否匹配当前设备
      */
-    isDevice: ((width: number) => boolean) | boolean
+    match: ((width: number) => boolean) | boolean
   }[]
   /**
    * @description
@@ -82,7 +90,7 @@ const DEFAULT_OPTIONS: Partial<FlexibleOption> = {
     type: 'debounce',
     delay: 60,
   },
-  distinctDevice: [{ deviceWidthRange: [0, Number.POSITIVE_INFINITY], isDevice: true, UIWidth: 375 }],
+  devices: [],
 }
 
 function flexible(options: FlexibleOption = {}) {
@@ -96,41 +104,36 @@ function flexible(options: FlexibleOption = {}) {
     ...options,
   }
 
-  const { rootValue, resizeOption, distinctDevice } = options as DeepRequired<FlexibleOption>
+  const { rootValue, resizeOption, devices } = options as DeepRequired<FlexibleOption>
 
   if (!rootValue || rootValue <= 0) {
     throw new Error(genErrorMsg('rootValue must be greater than 0'))
   }
 
-  if (!distinctDevice || !distinctDevice.length) {
-    throw new Error(genErrorMsg('distinctDevice needed'))
-  }
-
   function resize() {
     let width = window.document.documentElement[options.landscape ? 'clientHeight' : 'clientWidth']
 
-    const defaultDevice = distinctDevice[distinctDevice.length - 1]
+    const defaultDevice = devices[devices.length - 1]
 
     const currentDevice =
-      distinctDevice.find((device) =>
-        typeof device.isDevice === 'boolean' ? device.isDevice : device.isDevice(width),
-      ) || defaultDevice
+      devices.find((devices) => (typeof devices.match === 'boolean' ? devices.match : devices.match(width))) ||
+      defaultDevice
 
-    if (currentDevice?.isDevice) {
-      if (currentDevice.deviceWidthRange.length !== 2) {
-        throw new Error(genErrorMsg('deviceWidthRange length must be 2'))
+    if (currentDevice?.match) {
+      if (currentDevice.range.length !== 2) {
+        throw new Error(genErrorMsg('range length must be 2'))
       }
-      if (width >= currentDevice.deviceWidthRange[1]) {
-        width = currentDevice.deviceWidthRange[1]
-      } else if (width <= currentDevice.deviceWidthRange[0]) {
-        width = currentDevice.deviceWidthRange[0]
+      if (width >= currentDevice.range[1]) {
+        width = currentDevice.range[1]
+      } else if (width <= currentDevice.range[0]) {
+        width = currentDevice.range[0]
       }
 
       if (document.documentElement) {
-        document.documentElement.style.fontSize = `${(width / currentDevice.UIWidth) * rootValue}${PX_UNIT}`
+        document.documentElement.style.fontSize = `${(width / currentDevice.base) * rootValue}${PX_UNIT}`
       }
     } else {
-      throw new Error(genErrorMsg('no device matched'))
+      throw new Error(genErrorMsg('no devices matched'))
     }
   }
 
@@ -180,3 +183,4 @@ function flexible(options: FlexibleOption = {}) {
 
 export default flexible
 export { flexible }
+export { type FlexibleOption }
