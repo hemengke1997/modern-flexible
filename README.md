@@ -4,6 +4,10 @@
 >
 > 支持同时适配多种分辨率的设备
 
+
+> [!IMPORTANT]
+> 升级到2.0后，部分字段命名破坏更新，请按照此文档配置
+
 ## 在线示例
 
 [Demo](https://hemengke1997.github.io/modern-flexible/)

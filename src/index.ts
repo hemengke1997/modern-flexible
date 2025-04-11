@@ -24,7 +24,7 @@ type DeepRequired<T> = T extends Primitive
           : DeepRequired<T[P]>
     }
 
-type FlexibleOption = {
+type FlexibleOptions = {
   rootValue?: number
   /**
    * @description
@@ -84,7 +84,7 @@ function genErrorMsg(msg: string) {
 
 const PX_UNIT = 'px'
 
-const DEFAULT_OPTIONS: Partial<FlexibleOption> = {
+const DEFAULT_OPTIONS: Partial<FlexibleOptions> = {
   rootValue: 16,
   resizeOption: {
     type: 'debounce',
@@ -93,7 +93,7 @@ const DEFAULT_OPTIONS: Partial<FlexibleOption> = {
   devices: [],
 }
 
-function flexible(options: FlexibleOption = {}) {
+function flexible(options: FlexibleOptions = {}) {
   // ssr disable
   if (typeof window === 'undefined' || typeof document === 'undefined') {
     throw new TypeError(genErrorMsg('current environment is not browser'))
@@ -104,7 +104,7 @@ function flexible(options: FlexibleOption = {}) {
     ...options,
   }
 
-  const { rootValue, resizeOption, devices } = options as DeepRequired<FlexibleOption>
+  const { rootValue, resizeOption, devices } = options as DeepRequired<FlexibleOptions>
 
   if (!rootValue || rootValue <= 0) {
     throw new Error(genErrorMsg('rootValue must be greater than 0'))
@@ -183,4 +183,4 @@ function flexible(options: FlexibleOption = {}) {
 
 export default flexible
 export { flexible }
-export { type FlexibleOption }
+export { type FlexibleOptions }

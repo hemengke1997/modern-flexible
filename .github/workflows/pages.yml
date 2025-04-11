@@ -14,14 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
+        uses: actions/checkout@v3
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 9.12.3
+        uses: pnpm/action-setup@v3
 
       - name: Install Dependencies
         run: |
@@ -36,4 +32,4 @@ jobs:
         with:
           ACCESS_TOKEN: ${{ secrets.GHB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: playground/spa/dist
+          FOLDER: playground/dist
