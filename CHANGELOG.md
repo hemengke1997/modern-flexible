@@ -1,3 +1,7 @@
+# [2.0.0](https://github.com/hemengke1997/modern-flexible/compare/v1.1.0...v2.0.0) (2025-04-11)
+
+
+
 # [1.1.0](https://github.com/hemengke1997/modern-flexible/compare/v1.0.1...v1.1.0) (2024-12-20)
 
 
@@ -85,7 +89,7 @@
 
 ### Features
 
-* add default `devices` ([5d79df4](https://github.com/hemengke1997/modern-flexible/commit/5d79df400edc3ecd19a12ffaff74af43be07558f))
+* add default `distinctDevice` ([5d79df4](https://github.com/hemengke1997/modern-flexible/commit/5d79df400edc3ecd19a12ffaff74af43be07558f))
 
 
 
