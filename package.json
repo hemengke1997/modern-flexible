@@ -33,7 +33,7 @@
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
-    "build:pages": "pnpm run build && cd playground/spa && pnpm run build",
+    "build:pages": "pnpm run build && cd playground && pnpm run build",
     "test:watch": "vitest",
     "test": "vitest",
     "commitlint": "commitlint -e",
