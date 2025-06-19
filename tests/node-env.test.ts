@@ -1,4 +1,4 @@
-import { describe, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { flexible } from '../src'
 
 describe('morder flexible', () => {
