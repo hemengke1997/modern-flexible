@@ -29,20 +29,32 @@ function App() {
 
   return (
     <div className='App flex flex-col gap-y-[12px]'>
-      <div className={'box flex'}>
-        <div className={'text-[24px] font-bold'}>预定义机型：</div>
-        <div className={'flex divide-x'}>
-          {DEVICE.map((d) => (
-            <div key={d.type} className={'px-[8px]'}>
-              【{d.type}】字体变化的窗口范围：{d.range[0]}px~{d.range[1]}px
+      <div className='box flex'>
+        <div className='text-[24px] font-bold'>预定义机型：</div>
+        <div className='flex divide-x'>
+          {DEVICE.map(d => (
+            <div key={d.type} className='px-[8px]'>
+              【
+              {d.type}
+              】字体变化的窗口范围：
+              {d.range[0]}
+              px~
+              {d.range[1]}
+              px
             </div>
           ))}
         </div>
       </div>
-      <div className={'mt-[12px] text-2xl font-bold'}>当前机型：{devices}</div>
-      <div className={'text-2xl font-bold'}>当前html根font-size: {fontSize}</div>
+      <div className='mt-[12px] text-2xl font-bold'>
+        当前机型：
+        {devices}
+      </div>
+      <div className='text-2xl font-bold'>
+        当前html根font-size:
+        {fontSize}
+      </div>
 
-      <div className={'mt-[32px] text-2xl font-bold text-orange-400'}>
+      <div className='mt-[32px] text-2xl font-bold text-orange-400'>
         请缩放浏览器窗口大小，可观察到机型和font-size变化
       </div>
     </div>

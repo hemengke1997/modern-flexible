@@ -24,7 +24,31 @@ type DeepRequired<T> = T extends Primitive
           : DeepRequired<T[P]>
     }
 
-type FlexibleOptions = {
+interface Device {
+  /**
+   * @description
+   * Base width, usually the width of the design UI
+   *
+   * 基准宽度，通常是设计稿宽度
+   */
+  base: number
+  /**
+   * @description
+   * devices width range (if width is out of range, use the edge value of the closed interval)
+   *
+   * 设备宽度范围（如果宽度超出范围，则使用闭区间的边值）
+   */
+  range: number[]
+  /**
+   * @description
+   * whether the window width match current devices
+   *
+   * 窗口宽度是否匹配当前设备
+   */
+  match: ((width: number) => boolean) | boolean
+}
+
+interface FlexibleOptions {
   rootValue?: number
   /**
    * @description
@@ -33,44 +57,22 @@ type FlexibleOptions = {
    */
   resizeOption?:
     | {
-        type: 'debounce'
-        delay?: number
-        options?: DebounceOptions
-      }
+      type: 'debounce'
+      delay?: number
+      options?: DebounceOptions
+    }
     | {
-        type: 'throttle'
-        delay?: number
-        options?: ThrottleOptions
-      }
+      type: 'throttle'
+      delay?: number
+      options?: ThrottleOptions
+    }
     | false
   /**
    * @description
    * distinct devices
    * 设备列表
    */
-  devices?: {
-    /**
-     * @description
-     * Base width, usually the width of the design UI
-     *
-     * 基准宽度，通常是设计稿宽度
-     */
-    base: number
-    /**
-     * @description
-     * devices width range (if width is out of range, use the edge value of the closed interval)
-     *
-     * 设备宽度范围（如果宽度超出范围，则使用闭区间的边值）
-     */
-    range: number[]
-    /**
-     * @description
-     * whether the window width match current devices
-     *
-     * 窗口宽度是否匹配当前设备
-     */
-    match: ((width: number) => boolean) | boolean
-  }[]
+  devices?: Device[]
   /**
    * @description
    * whether use landscape mode
@@ -115,9 +117,9 @@ function flexible(options: FlexibleOptions = {}) {
 
     const defaultDevice = devices[devices.length - 1]
 
-    const currentDevice =
-      devices.find((devices) => (typeof devices.match === 'boolean' ? devices.match : devices.match(width))) ||
-      defaultDevice
+    const currentDevice
+      = devices.find(devices => (typeof devices.match === 'boolean' ? devices.match : devices.match(width)))
+        || defaultDevice
 
     if (currentDevice?.match) {
       if (currentDevice.range.length !== 2) {
@@ -125,14 +127,16 @@ function flexible(options: FlexibleOptions = {}) {
       }
       if (width >= currentDevice.range[1]) {
         width = currentDevice.range[1]
-      } else if (width <= currentDevice.range[0]) {
+      }
+      else if (width <= currentDevice.range[0]) {
         width = currentDevice.range[0]
       }
 
       if (document.documentElement) {
         document.documentElement.style.fontSize = `${(width / currentDevice.base) * rootValue}${PX_UNIT}`
       }
-    } else {
+    }
+    else {
       throw new Error(genErrorMsg('no devices matched'))
     }
   }

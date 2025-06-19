@@ -1,6 +1,6 @@
 import { defineConfig } from 'tsup'
 
-export const tsup = defineConfig((option) => ({
+export const tsup = defineConfig(option => ({
   entry: ['src/index.ts'],
   dts: true,
   clean: true,

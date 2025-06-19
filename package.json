@@ -1,35 +1,35 @@
 {
   "name": "modern-flexible",
+  "type": "module",
   "version": "2.0.0",
   "packageManager": "pnpm@9.12.3",
   "description": "现代多设备伸缩布局方案",
-  "type": "module",
-  "keywords": [
-    "flexiblejs",
-    "responsive",
-    "flexible"
-  ],
+  "author": "hemengke <https://github.com/hemengke1997>",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hemengke1997/modern-flexible.git"
   },
-  "author": "hemengke <https://github.com/hemengke1997>",
+  "keywords": [
+    "flexiblejs",
+    "responsive",
+    "flexible"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "CHANGELOG.md",
     "README.md",
     "dist"
   ],
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
-    }
-  },
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
@@ -46,11 +46,10 @@
     "throttle-debounce": "^5.0.2"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^4.14.1",
     "@commitlint/cli": "^19.8.0",
-    "@minko-fe/commitlint-config": "^2.1.2",
-    "@minko-fe/eslint-config": "^4.2.2",
-    "@minko-fe/prettier-config": "^2.2.5",
-    "@minko-fe/tsconfig": "^2.1.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@eslint-react/eslint-plugin": "^1.52.2",
     "@types/debug": "^4.1.12",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.17.30",
@@ -59,6 +58,10 @@
     "conventional-changelog-cli": "^5.0.0",
     "cross-env": "^7.0.3",
     "eslint": "^9.24.0",
+    "eslint-plugin-format": "^1.0.1",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "eslint-plugin-tailwindcss": "^3.18.0",
     "jsdom": "^25.0.1",
     "npm-run-all": "^4.1.5",
     "simple-git-hooks": "^2.12.1",
@@ -73,8 +76,7 @@
   },
   "commitlint": {
     "extends": [
-      "@minko-fe/commitlint-config"
+      "@commitlint/config-conventional"
     ]
-  },
-  "prettier": "@minko-fe/prettier-config"
+  }
 }
